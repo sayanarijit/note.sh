@@ -15,9 +15,9 @@ chmod +x note.sh
 ```
 ./note.sh my first note
 ```
-* Write "I love cheeze" and close editor. Note is created. Now lets find the note
+* Write "I love cheese" and close editor. Note is created. Now lets find the note
 ```
-./note.sh cheeze
+./note.sh cheese
 ```
 or
 ```
