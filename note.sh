@@ -10,7 +10,7 @@ hr=$(for((i=0;$i<$cols;i++));do echo -ne ─; done)
  
 createNote ()
 {
-        file=$(echo $1|tr " " "_")
+        file=$(echo $1|sed "s/[^a-zA-Z0-9]/_/g")
         clear
         $EDITOR "$notesDir/$file"
         if [ -f "$notesDir/$file" ]; then
@@ -23,7 +23,7 @@ createNote ()
 }
 displayNote ()
 {
-        file=$(echo $1|tr " " "_")
+        file=$(echo $1|sed "s/[^a-zA-Z0-9]/_/g")
         clear
         echo "File name 	: $notesDir/$file"
 	echo "Created on 	: $(ls -l $notesDir/$file | awk '{print $6" "$7", "$8}') by $(ls -l $notesDir/$file | awk '{print $3}')"
@@ -34,7 +34,7 @@ displayNote ()
         echo $hr
         read -p "> \"e\" to edit, \"r\" to rename, \"d\" to delete [ default: do nothing ] : " ans
         [ "$ans" = "e" ] && $EDITOR "$notesDir/$file" && clear && echo "Note saved: $notesDir/$file"
-        [ "$ans" = "r" ] && clear && read -p "Enter new name: " ans && clear && mv -vi "$notesDir/$file" "$notesDir/$(echo $ans|tr ' ' '_')"
+        [ "$ans" = "r" ] && clear && read -p "Enter new name: " ans && clear && mv -vi "$notesDir/$file" "$notesDir/$(echo $ans|sed "s/[^a-zA-Z0-9]/_/g")"
         [ "$ans" = "d" ] && clear && rm -vi "$notesDir/$file"
         return 0
 }
@@ -47,7 +47,7 @@ if [ "$*" ]; then
         echo "Searching keywords : $*"
 else
         echo
-        echo "Usage:   ./note.sh KEYWORDS [e.g. ./notes.sh patching rhel kernel]"
+        echo "Usage:   ./note.sh KEYWORDS [e.g. ./note.sh patching rhel kernel]"
         echo
         exit 1
 fi
