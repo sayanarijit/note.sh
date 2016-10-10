@@ -5,7 +5,7 @@ A simple, yet powerful and handy notes taking script.
 Usage:
 * Download [note.sh](https://github.com/sayanarijit/note.sh/releases/download/1.0.0/note.sh)
 ```
-wget https://github.com/sayanarijit/steps.sh/releases/download/1.0.0/note.sh
+wget https://github.com/sayanarijit/note.sh/releases/download/1.0.0/note.sh
 ```
 * Give execute permission
 ```
