@@ -1,6 +1,6 @@
 {
   "name": "note.sh",
   "tagline": "A simple, yet powerful and handy notes taking script.",
-  "body": "# note.sh\r\n\r\nA simple, yet powerful and handy notes taking script.\r\n\r\nUsage:\r\n* Download [note.sh](https://github.com/sayanarijit/note.sh/releases/download/1.0.0/note.sh)\r\n```\r\nwget https://github.com/sayanarijit/steps.sh/releases/download/1.0.0/note.sh\r\n```\r\n* Give execute permission\r\n```\r\nchmod +x note.sh\r\n```\r\n* Create your 1st note (Tip: default editor is vi; to change it, edit $EDITOR variable in note.sh)\r\n```\r\n./note.sh my first note\r\n```\r\n* Write \"I love cheese\" and close editor. Note is created. Now lets find the note\r\n```\r\n./note.sh cheese\r\n```\r\nor\r\n```\r\n./note.sh first note\r\n```\r\n",
+  "body": "# note.sh\r\n\r\nA simple, yet powerful and handy notes taking script.\r\n\r\nUsage:\r\n* Download [note.sh](https://github.com/sayanarijit/note.sh/releases/download/1.0.0/note.sh)\r\n```\r\nwget https://github.com/sayanarijit/note.sh/releases/download/1.0.0/note.sh\r\n```\r\n* Give execute permission\r\n```\r\nchmod +x note.sh\r\n```\r\n* Create your 1st note (Tip: default editor is vi; to change it, edit $EDITOR variable in note.sh)\r\n```\r\n./note.sh my first note\r\n```\r\n* Write \"I love cheese\" and close editor. Note is created. Now lets find the note\r\n```\r\n./note.sh cheese\r\n```\r\nor\r\n```\r\n./note.sh first note\r\n```\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
