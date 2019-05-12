@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# V1.0 by Arijit Basu
+# V1.1.0 By Arijit Basu <arijitbasu.in>
 
-EDITOR="vi"
-notesDir=$HOME/notes
+[ ! "$EDITOR" ] && EDITOR="vi"
+[ ! "$NOTESDIR" ] && NOTESDIR=$HOME/notes
 
 cols=$(tput cols)
 hr=$(for((i=0;$i<$cols;i++));do echo -ne ─; done)
@@ -12,9 +12,9 @@ createNote ()
 {
         file=$(echo $1|sed "s/[^a-zA-Z0-9]/_/g")
         clear
-        $EDITOR "$notesDir/$file"
-        if [ -f "$notesDir/$file" ]; then
-                echo "Note saved: $notesDir/$file"
+        $EDITOR "$NOTESDIR/$file"
+        if [ -f "$NOTESDIR/$file" ]; then
+                echo "Note saved: $NOTESDIR/$file"
         else
                 echo "Note discarded !"
         fi
@@ -25,22 +25,22 @@ displayNote ()
 {
         file=$(echo $1|sed "s/[^a-zA-Z0-9]/_/g")
         clear
-        echo "File name 	: $notesDir/$file"
-	echo "Created on 	: $(ls -l $notesDir/$file | awk '{print $6" "$7", "$8}') by $(ls -l $notesDir/$file | awk '{print $3}')"
+        echo "File name 	: $NOTESDIR/$file"
+	echo "Created on 	: $(ls -l $NOTESDIR/$file | awk '{print $6" "$7", "$8}') by $(ls -l $NOTESDIR/$file | awk '{print $3}')"
         echo $hr
         echo
-        cat "$notesDir/$file"
+        cat "$NOTESDIR/$file"
         echo
         echo $hr
         read -p "> \"e\" to edit, \"r\" to rename, \"d\" to delete [ default: do nothing ] : " ans
-        [ "$ans" = "e" ] && $EDITOR "$notesDir/$file" && clear && echo "Note saved: $notesDir/$file"
-        [ "$ans" = "r" ] && clear && read -p "Enter new name: " ans && clear && mv -vi "$notesDir/$file" "$notesDir/$(echo $ans|sed "s/[^a-zA-Z0-9]/_/g")"
-        [ "$ans" = "d" ] && clear && rm -vi "$notesDir/$file"
+        [ "$ans" = "e" ] && $EDITOR "$NOTESDIR/$file" && clear && echo "Note saved: $NOTESDIR/$file"
+        [ "$ans" = "r" ] && clear && read -p "Enter new name: " ans && clear && mv -vi "$NOTESDIR/$file" "$NOTESDIR/$(echo $ans|sed "s/[^a-zA-Z0-9]/_/g")"
+        [ "$ans" = "d" ] && clear && rm -vi "$NOTESDIR/$file"
         return 0
 }
  
-[ ! -d "$notesDir" ] && mkdir -p "$notesDir" && echo "Created dir: $notesDir"
-[ ! -d "$notesDir" ] && exit 1
+[ ! -d "$NOTESDIR" ] && mkdir -p "$NOTESDIR" && echo "Created dir: $NOTESDIR"
+[ ! -d "$NOTESDIR" ] && exit 1
  
 if [ "$*" ]; then
         clear
@@ -54,18 +54,18 @@ fi
  
 echo
  
-files=$(grep -iwR $1 $notesDir|cut -d: -f1)
+files=$(grep -iwR $1 $NOTESDIR|cut -d: -f1)
 for arg in $*; do
         for file in $files; do
                 [ "$(grep -iw $arg $file)" ] || files=$(echo -e "$files"|grep -iwv $file)
         done
 done
  
-fileNames=$(ls $notesDir|tr "\t" "\n")
+fileNames=$(ls $NOTESDIR|tr "\t" "\n")
 for arg in $*; do
         for fileName in $fileNames;do
-                filex=$(echo -e "$filex\n$notesDir/$fileName")
-                [ "$(echo $fileName | tr '_' ' ' | grep -iw $arg)" ] || filex=$(echo -e "$filex"|grep -iwv "$notesDir/$fileName")
+                filex=$(echo -e "$filex\n$NOTESDIR/$fileName")
+                [ "$(echo $fileName | tr '_' ' ' | grep -iw $arg)" ] || filex=$(echo -e "$filex"|grep -iwv "$NOTESDIR/$fileName")
         done
 done
 files=$(echo -e "$files\n$filex"|sort -u)
@@ -74,15 +74,15 @@ if [ "$files" ]; then
         clear
         echo "Select option:"
         echo
-        opts="<CREATE-NEW-NOTE>"
+        opts="@CREATE-NEW-NOTE"
         for file in $files; do
                 opts=$(echo -e "$opts\n$(basename $file)")
         done
-        opts=$(echo "$opts <EXIT>")
+        opts=$(echo "$opts @EXIT")
  
         select opt in $opts; do
-                [ "$opt" = "<EXIT>" ] && break
-                [ "$opt" = "<CREATE-NEW-NOTE>" ] && createNote "$*" && break
+                [ "$opt" = "@EXIT" ] && break
+                [ "$opt" = "@CREATE-NEW-NOTE" ] && createNote "$*" && break
                 if [ "$opt" ]; then
                         displayNote "$opt"
                         break
