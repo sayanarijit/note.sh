@@ -2,6 +2,8 @@ note.sh
 =======
 Probably the simplest and lightest note taking tool on your terminal.
 
+[![asciicast](https://asciinema.org/a/245695.svg)](https://asciinema.org/a/245695)
+
 Usage
 -----
 Download [note.sh](https://github.com/sayanarijit/note.sh/releases)
